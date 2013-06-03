@@ -15,10 +15,13 @@ ActiveRecord::Schema.define(:version => 20130603202656) do
 
   create_table "posts", :force => true do |t|
     t.string   "title"
-    t.text     "description", :default => "f"
-    t.boolean  "enable"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.text     "annot"
+    t.text     "description"
+    t.boolean  "enable",      :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
+
+  add_index "posts", ["title"], :name => "index_posts_on_title"
 
 end
