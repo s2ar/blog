@@ -1,12 +1,16 @@
 class PostsController < ApplicationController
 	def index
 		@posts = Post.all
-		render text: @posts.map { |p| "#{p.title}: #{p.annot}" }.join("<br>")		
+				
 	end
 
 	# /posts/:id GET
 	def show
-		
+		if @post = Post.where(id: params[:id]).first
+			render 'posts/show'
+		else
+			render text: 'Page not found', status: 404
+		end
 	end
 
 	# /posts/new GET
@@ -21,9 +25,12 @@ class PostsController < ApplicationController
 
 	# /posts  POST
 	def create
-		p params
 		@post = Post.create(params[:post])
-		render text: "post id: #{@post.id} title: #{@post.title} (#{!@post.new_record?})"
+		if @post.errors.empty?
+			redirect_to post_path(@post)
+		else
+			render 'new'
+		end
 	end
 
 	# /posts/:id PUT
