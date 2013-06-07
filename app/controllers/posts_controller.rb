@@ -1,26 +1,30 @@
 class PostsController < ApplicationController
+
+	before_filter :find_post, only: [:show, :edit, :update, :destroy]
+
 	def index
-		@posts = Post.all
-				
+		@posts = Post.all				
 	end
 
 	# /posts/:id GET
 	def show
-		if @post = Post.where(id: params[:id]).first
+		if @post
 			render 'posts/show'
 		else
 			render text: 'Page not found', status: 404
 		end
 	end
-
-	# /posts/new GET
-	def new
+	def upvote
 		
 	end
 
+	# /posts/new GET
+	def new
+		@post = Post.new
+	end
+
 	# /posts/:id/edit GET
-	def edit
-		
+	def edit		
 	end
 
 	# /posts  POST
@@ -34,12 +38,23 @@ class PostsController < ApplicationController
 	end
 
 	# /posts/:id PUT
-	def update
-		
+	def update	
+		@post.update_attributes(params[:post])		 
+		if @post.errors.empty?
+			redirect_to post_path(@post)
+		else
+			render 'edit'
+		end
 	end
 
 	# /posts/:id DELETE
-	def destroy
-		
+	def destroy		
+		@post.destroy
+		redirect_to action: 'index'
 	end
+
+	private
+		def find_post
+			@post = Post.find(params[:id])
+		end
 end

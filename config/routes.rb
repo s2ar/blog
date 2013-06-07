@@ -54,6 +54,9 @@ Blog::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  resources :posts
+  resources :posts do
+    get :upvote, on: :member
+  end
+  
   match ':controller(/:action(/:id))(.:format)'
 end

@@ -1,4 +1,21 @@
-<% @posts.each do |p| %>
-<p><%= link_to p.title, post_path(p)  %></p>
+<h1>Posts</h1>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Title</th>
+		<th>Edit</th>
+		<th>Del</th>		
+	</tr>
 
-<% end %>
+	<% @posts.each do |p| %>
+	<tr>
+		<td><%= p.id %></td>
+		<td><%= link_to p.title, post_path(p)  %></td>
+		<td><%= link_to "Редактировать", edit_post_path(p)  %></td>
+		<td><%= link_to "Удалить", p, method: :delete, data: {confirm:"Точно удалить?"} %></td>
+	</tr>
+	<p></p>
+
+	<% end %>
+</table>
+
