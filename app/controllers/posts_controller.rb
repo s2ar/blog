@@ -55,6 +55,7 @@ class PostsController < ApplicationController
 
 	private
 		def find_post
-			@post = Post.find(params[:id])
+			@post = Post.where(id: params[:id]).first
+			render_404 unless @post
 		end
 end

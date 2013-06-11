@@ -1,4 +1,6 @@
 Blog::Application.routes.draw do
+
+  resource :posts
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +50,7 @@ Blog::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'posts#index', as: "posts"
 
   # See how all your routes lay out with "rake routes"
 
@@ -58,5 +60,5 @@ Blog::Application.routes.draw do
     get :upvote, on: :member
   end
   
-  match ':controller(/:action(/:id))(.:format)'
+  #match ':controller(/:action(/:id))(.:format)'
 end
