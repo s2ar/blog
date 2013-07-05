@@ -14,9 +14,9 @@ class PostsController < ApplicationController
 			render text: 'Page not found', status: 404
 		end
 	end
-	def upvote
+	#def upvote
 		
-	end
+	#end
 
 	# /posts/new GET
 	def new
@@ -29,7 +29,11 @@ class PostsController < ApplicationController
 
 	# /posts  POST
 	def create
-		@post = Post.create(params[:post])
+		@post = Post.new(params[:post])
+		puts YAML::dump("asdasdas")
+		@post.save!
+		#@post = Post.create(params[:post])
+
 		if @post.errors.empty?
 			redirect_to post_path(@post)
 		else
