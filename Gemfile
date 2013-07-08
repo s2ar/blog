@@ -8,7 +8,8 @@ gem 'rails', '3.2.13'
 
 
 gem 'pg', '0.12.2'
-
+gem 'nokogiri', '1.5.9'
+gem 'mechanize'
 
 
 # Gems used only for assets and not required

@@ -1,0 +1,9 @@
+<h1>Add PAMM</h1>
+<%= YAML::dump(@post) %>
+
+
+
+<%= form_for @fxtrend, url: {action: 'create'} do |f| %>
+	<%= f.text_field :pamm %> <br>
+<p><%= f.submit "Создать", class: 'btn btn-success'%></p>
+<% end %>

@@ -1,0 +1,12 @@
+<h1>Pamms of Fx-trend</h1>
+
+
+	<% @fxtrends.each do |fx| %>
+	<div>
+		<h2><%= link_to fx.pamm, fxtrend_path(fx) %></h2>
+	<div><%= fx.pamm %></div>
+		<%= link_to "Редактировать", edit_fxtrend_path(fx)  %>
+		<%= link_to "Удалить", fx, method: :delete, data: {confirm:"Точно удалить?"} %>
+	</div>
+
+	<% end %>
