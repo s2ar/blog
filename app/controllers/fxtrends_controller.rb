@@ -18,12 +18,14 @@ class FxtrendsController < ApplicationController
 
 		agent = Mechanize.new
 		page = agent.get('http://fx-trend.com/pamm/'+@fxtrend[:pamm]+'/')
-
+		pamm_info = ''
 		page.search("table.my_accounts_table tr td").each do |td|
 			
 			#puts td.text
-		
-			pamm_info += YAML::dump(td.text)
+			if td.text.empty?
+				next
+			end
+			pamm_info = pamm_info.to_s + "<br />" + td.text.to_s
 		end
 
 		return render :text => YAML::dump(pamm_info)
