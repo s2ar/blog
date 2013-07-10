@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130707145532) do
+ActiveRecord::Schema.define(:version => 20130710203000) do
 
   create_table "fxtrends", :force => true do |t|
     t.string   "pamm"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20130707145532) do
     t.string   "percent"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "type"
   end
 
   create_table "posts", :force => true do |t|

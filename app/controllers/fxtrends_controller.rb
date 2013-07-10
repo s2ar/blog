@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class FxtrendsController < ApplicationController
 
 	def index
@@ -12,23 +14,96 @@ class FxtrendsController < ApplicationController
 
 		#require 'rubygems'
 		require 'mechanize'
+		require "date"
 		@fxtrend = params[:fxtrend]
-
+		pamm = @fxtrend[:pamm]
 		puts YAML::dump(@fxtrend[:pamm])
 
 		agent = Mechanize.new
 		page = agent.get('http://fx-trend.com/pamm/'+@fxtrend[:pamm]+'/')
 		pamm_info = ''
+		firstArray = []
+		tmpArray = []
+		flagB = false 
 		page.search("table.my_accounts_table tr td").each do |td|
-			
-			#puts td.text
+
 			if td.text.empty?
 				next
 			end
-			pamm_info = pamm_info.to_s + "<br />" + td.text.to_s
+
+			# Проверям флаг flagB. Если он включен - ищем подстроки процентов
+			if flagB
+				# ~ Определяем строки вида "-26.75%" | "26.75%"
+				md = /^([0-9.-]+)%$/.match td.text.to_s 
+				if md.nil?
+					next
+				end	
+				# Нашли значение процента. Сохраним в массив
+				tmpArray << md[1].to_f
+				firstArray << tmpArray
+				tmpArray =[]
+				flagB = false
+			else
+			
+			end
+
+			# ~ Определяем строки вида "Декабрь 2011" ~
+
+			md = /^([А-Яа-я]+)\s([0-9]{4,})$/.match td.text.to_s 
+			if md.nil?
+				next
+			end
+			unless md[1].empty? && md[2].empty?
+				# есть совпадение. Установим флаг, преобразуем месяц и год в метку времени
+				flagB = true
+				month = md[1].to_s
+				year = md[2].to_i
+				case month
+				when 'Январь'
+				  month = 1
+				when 'Февраль'
+				  month = 2
+				when 'Март'
+				  month = 3
+				when 'Апрель'
+				  month = 4
+				when 'Май'
+				  month = 5
+				when 'Июнь'
+				  month = 6
+				when 'Июль'
+				  month = 7
+				when 'Август'
+				  month = 8
+				when 'Сентябрь'
+				  month = 9
+				when 'Октябрь'
+				  month = 10
+				when 'Ноябрь'
+				  month = 11
+				when 'Декабрь'
+				  month = 12
+				else
+				  month = nil
+				end
+				
+				date = Date.new(year,month)
+				tmpArray << date
+				#pamm_info += date.to_s  
+			end
+		
+
+			#puts td.text
+
+			#pamm_info = pamm_info.to_s + "<br />" + td.text.to_s
 		end
 
-		return render :text => YAML::dump(pamm_info)
+		firstArray.each do |el|
+			@fxtrend = Fxtrend.new(pamm: pamm, date: el[0], percent: el[1], type: 'month')
+			@fxtrend.save!	
+		end
+
+		return render :text => YAML::dump(firstArray)
 		redirect_to fxtrends_path(@fxtrend)
 
 		#@post = Post.new(params[:post])
@@ -41,6 +116,10 @@ class FxtrendsController < ApplicationController
 		#else
 			#render 'new'
 		#end
+	end
+
+	def show
+		
 	end
 
 end
