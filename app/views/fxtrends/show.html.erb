@@ -10,11 +10,9 @@
 		  // Chart data records -- each entry in this array corresponds to a point on
 		  // the chart.
 		  data: [
-		    { year: '2011-05-01', value: 101.62 },
-		    { year: '2011-06-01', value: 196.18 },
-		    { year: '2011-07-01', value: 339.64 },
-		    { year: '2011-08-01', value: 541.8 },
-		    { year: '2011-09-01', value: 639.32 }
+		  	<% @arData.each do |el| %>
+		    { year: '<%=el[:date]%>', value: <%=el[:deposit]%> },
+		    <% end%>	
 		  ],
 		  // The name of the data record attribute that contains x-values.
 		  xkey: 'year',
@@ -22,7 +20,7 @@
 		  ykeys: ['value'],
 		  // Labels for the ykeys -- will be displayed when you hover over the
 		  // chart.
-		  labels: ['percent']
+		  labels: ['deposit']
 		});
 
 	</script>

@@ -1,3 +1,3 @@
 class Fxtrend < ActiveRecord::Base
-	attr_accessible :pamm, :date, :percent, :type
+	attr_accessible :pamm, :date, :percent, :kind
 end

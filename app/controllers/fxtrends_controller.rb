@@ -88,23 +88,17 @@ class FxtrendsController < ApplicationController
 				end
 				
 				date = Date.new(year,month)
-				tmpArray << date
-				#pamm_info += date.to_s  
+				tmpArray << date			
 			end
-		
-
-			#puts td.text
-
-			#pamm_info = pamm_info.to_s + "<br />" + td.text.to_s
 		end
 
 		firstArray.each do |el|
-			@fxtrend = Fxtrend.new(pamm: pamm, date: el[0], percent: el[1], type: 'month')
+			@fxtrend = Fxtrend.new(pamm: pamm, date: el[0], percent: el[1], kind: 'month')
 			@fxtrend.save!	
 		end
 
 		return render :text => YAML::dump(firstArray)
-		redirect_to fxtrends_path(@fxtrend)
+		redirect_to fxtrends_path(id: pamm)
 
 		#@post = Post.new(params[:post])
 		#puts YAML::dump("asdasdas")
@@ -119,7 +113,18 @@ class FxtrendsController < ApplicationController
 	end
 
 	def show
-		
+		#puts YAML::dump(params[:pamm])
+		@fxtrends = Fxtrend.where("kind = 'month' AND pamm=?", params[:id])
+		deposit = 100
+		@arData = []
+		@fxtrends.each do |el| 
+			if el.percent.to_f > 0 
+				el.percent = el.percent.to_f/2 			
+			end
+			deposit = deposit.to_f*(el.percent.to_f/100 + 1)
+			deposit = deposit.round 2
+			@arData << {date: el.date, deposit: deposit}		
+		end
 	end
 
 end

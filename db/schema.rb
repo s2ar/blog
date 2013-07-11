@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20130710203000) do
     t.string   "percent"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "type"
+    t.string   "kind"
   end
 
   create_table "posts", :force => true do |t|
