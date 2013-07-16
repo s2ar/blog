@@ -30,7 +30,7 @@ class PostsController < ApplicationController
 	# /posts  POST
 	def create
 		@post = Post.new(params[:post])
-		puts YAML::dump("asdasdas")
+		#puts YAML::dump("asdasdas")
 		@post.save!
 		#@post = Post.create(params[:post])
 

@@ -1,14 +1,36 @@
-<h1>Create New Post</h1>
-<%= YAML::dump(@post) %>
-<br>
-<%= YAML::dump(Post.new) %>
+<%= form_for @post, url: {action: 'create'}, :html => {:class => "form-horizontal"} do |f| %>
+	<fieldset>
+		<legend>Добавит запись</legend>
+		<div class="control-group">
+		 	<label class="control-label" for="title">Название</label>
+		 	<div class="controls">
+		 		<%= f.text_field :title, :class => "input-xlarge", id: "title" %>
+			</div>
+		</div>
 
-<%= form_for @post, url: {action: 'create'} do |f| %>
-	<%= f.text_field :title %> <br>
-	<%= f.text_area :annot %> <br>
-	<%= f.text_area :description %> <br>
-	<%= f.check_box :enable %> <br>
-<p><%= f.submit "Создать"%></p>
+		<!-- Textarea -->
+		<div class="control-group">
+			<label class="control-label" for="annot">Аннотация</label>
+			<div class="controls">   
+		 	<%= f.text_area :annot, id: "annot", :class => "span6", :rows=>5  %>
+		  </div>
+		</div>		
+		<div class="control-group">
+			<label class="control-label" for="description">Описание</label>
+			<div class="controls">   
+		 	<%= f.text_area :description, id: "description", :class => "span6", :rows=>5 %>
+		  </div>
+		</div>		
+		<div class="control-group">
+			<label class="control-label" for="enable">Включить</label>
+			<div class="controls">   
+		 	<%= f.check_box :enable, id: "enable" %>
+		  </div>
+		</div>		
+		<div class="control-group">
+			<div class="controls">   
+		 	<%= f.submit "Создать", :class => "btn btn-success" %>
+		  </div>
+		</div>
+	</fieldset>
 <% end %>
-
-

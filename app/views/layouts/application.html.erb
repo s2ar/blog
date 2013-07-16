@@ -12,7 +12,7 @@
     </style>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
     	<div class="container">
 	      	<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -33,7 +33,14 @@
   	</div>
 </div>
 <div class="container">
-<%= yield %>
+	<div class="row-fluid">
+		<div class="span8">
+			<%= yield %>
+		</div>
+		<div class="span4">
+			Nunc non velit sit amet mauris dictum vehicula. Phasellus lacus libero, ultrices sit amet vehicula nec, suscipit sit amet ipsum. Curabitur convallis quam eget arcu ullamcorper in malesuada mauris hendrerit. Morbi convallis, erat sed consequat convallis, elit eros ultrices lacus, eget tempor metus purus vitae libero. Ut non quam turpis, eget gravida nibh. Donec vel tortor ligula. Sed dui neque, condimentum sit amet volutpat in, luctus eget leo.
+		</div>
+	</div>
 </div>
 </body>
 </html>
