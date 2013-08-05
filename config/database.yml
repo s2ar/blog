@@ -1,6 +1,10 @@
 development:
   adapter: postgresql
-  database: blog_development
+  database: <%=ENV['TODO_APP_DEV_DATABASE'] %>
+  host:     <%=ENV['TODO_APP_DEV_HOST'] %>
+  username: <%=ENV['TODO_APP_DEV_USERNAME'] %>
+  port:     <%=ENV['TODO_APP_DEV_PORT'] %>
+  password: <%=ENV['TODO_APP_DEV_PASSWORD'] %>
   pool: 5
   timeout: 5000
 test:
